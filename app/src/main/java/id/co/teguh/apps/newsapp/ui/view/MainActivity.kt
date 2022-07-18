@@ -20,6 +20,9 @@ import android.content.Intent
 import android.net.Uri
 
 
+
+
+
 class MainActivity : AppCompatActivity(), ListTopNewsAdapter.ListItemListener, ListNewsAdapter.ListItemListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityModel
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity(), ListTopNewsAdapter.ListItemListener, L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainActivityModel::class.java)
+        viewModel = ViewModelProvider(this)[MainActivityModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -93,9 +96,12 @@ class MainActivity : AppCompatActivity(), ListTopNewsAdapter.ListItemListener, L
 
     override fun onItemClick(position: Int) {
         Log.e("news", "klik")
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(viewModel.newsDataForTopHeadlines.value?.get(position)?.url)
+        val i = Intent(this, ViewNewsActivity::class.java)
+        i.putExtra("url", viewModel.newsDataForTopHeadlines.value?.get(position)?.url)
         startActivity(i)
+//        val i = Intent(Intent.ACTION_VIEW)
+//        i.data = Uri.parse(viewModel.newsDataForTopHeadlines.value?.get(position)?.url)
+//        startActivity(i)
     }
 
     override fun getEntries(): List<ArticlesModel> {
@@ -104,9 +110,12 @@ class MainActivity : AppCompatActivity(), ListTopNewsAdapter.ListItemListener, L
 
     override fun onItemClickNews(position: Int) {
         Log.e("news", "klik")
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(viewModel.newsDataForDown.value?.get(position)?.url)
+        val i = Intent(this, ViewNewsActivity::class.java)
+        i.putExtra("url", viewModel.newsDataForDown.value?.get(position)?.url)
         startActivity(i)
+//        val i = Intent(Intent.ACTION_VIEW)
+//        i.data = Uri.parse(viewModel.newsDataForDown.value?.get(position)?.url)
+//        startActivity(i)
     }
 
     override fun getEntriesNews(): List<ArticlesModel> {
