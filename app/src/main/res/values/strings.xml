@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NewsAppKotlin</string>
+    <string name="top_headlines">Top Headline News</string>
+    <string name="LOADING">Loading</string>
+</resources>
